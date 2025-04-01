@@ -31,3 +31,10 @@ class SequenceEps:
 
     def __call__(self, gd, point):
         return np.linalg.norm(np.subtract(gd.history()[-1], point)) < self.eps
+
+class SequenceValueEps:
+    def __init__(self, eps):
+        self.eps = eps
+
+    def __call__(self, gd, point):
+        return abs(gd.func(gd.history()[-1]) - gd.func(point)) < self.eps
