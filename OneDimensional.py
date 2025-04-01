@@ -8,7 +8,7 @@ import numpy as np
 
 # Уравнение касательной для функции, содержащейся в gd к точке x_k, с дополнительным коэффициентом c1
 def l_alpha(gd, c1, x_k, alpha):
-    return gd.func(x_k) + c1 * alpha * gd.grad(x_k)
+    return gd.func(x_k) - c1 * alpha * (np.linalg.norm(gd.grad(x_k))) ** 2
 
 
 # Класс, реализующий метод backtracking
@@ -52,11 +52,7 @@ class BinarySearch:
             m = (l + r) / 2
             mp = gd.next_point(x_k, m)
             b1 = gd.func(mp) < l_alpha(gd, c1, x_k, m)
-            pos0 = gd.grad(x_k) >= 0
-            if pos0:
-                b2 = c2 * gd.grad(x_k) >= gd.grad(mp)
-            else:
-                b2 = c2 * gd.grad(x_k) <= gd.grad(mp)
+            b2 = np.sum(np.multiply(gd.grad(mp), gd.vector)) >= c2 * (np.linalg.norm(gd.grad(x_k))) ** 2
             if not b1:
                 r = m
                 continue

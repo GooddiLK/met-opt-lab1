@@ -13,13 +13,15 @@ def print_res(gd_inst, point, iterations):
     print("\n".join([str(i) for i in gd_inst(point, iterations)[0]]))
 
 
-# gd = GradientDescent(fu, gr, LearningRateSchedulingConstant(0.25), SequenceEps(0.0001))
-# print("\n".join([str(i) for i in gd(2)[0]]))
-# print("\n----------\n")
-# gd = GradientDescent(fu, gr, Armijo(3, 0.0001, 0.5), SequenceEps(0.0001))
-# print("\n".join([str(i) for i in gd(2)[0]]))
-# print("\n----------\n")
-# gd = GradientDescent(fu, gr, Wolfe(0.0001, 0.0005, 3, 0.0001), SequenceEps(0.0001))
-# print("\n".join([str(i) for i in gd(20)[0]]))
-gd = GradientDescent(func_table[1][0], func_table[1][1], LearningRateSchedulingConstant(0.4), SequenceEps(0.0001))
-print_res(gd, [2, 0], 0)
+def run(func_number, learning_rate, stopping_criteria, point, iterations):
+    gd = GradientDescent(func_table[func_number][0], func_table[func_number][1], learning_rate, stopping_criteria)
+    print_res(gd, point, iterations)
+
+
+if __name__ == "__main__":
+    run(1, LearningRateSchedulingConstant(0.4), SequenceEps(0.0001), [2, 0], 100)
+    print("--------")
+    run(1, Armijo(3, 0.0001, 0.5), SequenceEps(0.0001), [2, 0], 100)
+    print("--------")
+    run(1, Wolfe(0.0001, 0.0005, 3, 0.0001), SequenceEps(0.0001), [2, 0], 100)
+    print("--------")
