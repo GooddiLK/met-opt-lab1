@@ -25,4 +25,4 @@ class Armiho:
         self.bctrk = Backtracking(alpha_0, c1, q)
 
     def learning_rate(self, gd):
-        return self.bctrk.calculate_alpha(gd, gd.history[-1])
+        return self.bctrk.calculate_alpha(gd, gd.__history__[-1])
