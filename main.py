@@ -1,6 +1,6 @@
 from GradientDescent import GradientDescent
 from LearningRateScheduling import LearningRateSchedulingConstant
-from OneDimensional import Armiho
+from OneDimensional import Armijo, Wolfe
 from StoppingCriteria import Iterations, SequenceEps
 
 def fu(x):
@@ -12,5 +12,8 @@ def gr(x):
 gd = GradientDescent(fu, gr, LearningRateSchedulingConstant(0.25), SequenceEps(0.0001))
 print("\n".join([str(i) for i in gd(2)[0]]))
 print("\n----------\n")
-gd = GradientDescent(fu, gr, Armiho(3, 0.0001, 0.5), SequenceEps(0.0001))
+gd = GradientDescent(fu, gr, Armijo(3, 0.0001, 0.5), SequenceEps(0.0001))
 print("\n".join([str(i) for i in gd(2)[0]]))
+print("\n----------\n")
+gd = GradientDescent(fu, gr, Wolfe(0.0001, 0.0005, 3, 0.0001), SequenceEps(0.0001))
+print("\n".join([str(i) for i in gd(20)[0]]))

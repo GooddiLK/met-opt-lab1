@@ -51,7 +51,7 @@ class GradientDescent:
         point = startPoint
         self.__history__ = [startPoint] # История посещенных точек
         self.__funcCalculation__ = 0 # Счетчик вычислений функции
-        self.__gradCalculation__ = 0 # Счётчик вычисления градиента
+        self.__gradCalculation__ = 0 # Счётчик вычислений градиента
         while True:
             self.vector = np.multiply(self.grad(point), -1) # Направление следующего движения
             point = self.next_point(point, self.learningRateCalculator.learning_rate(self))
