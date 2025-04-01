@@ -1,5 +1,8 @@
 import numpy as np
 
+from StoppingCriteria import IterationsPlus
+
+
 class GradientDescent:
     def __init__(self, func, grad, learningRateCalculator, stoppingCriteria):
         self.__funcFunc__ = func
@@ -21,6 +24,7 @@ class GradientDescent:
 
     # При необходимости вычисляет функцию и увеличивает соответствующий счетчик
     def func(self, x_k):
+        x_k = tuple(x_k)
         if x_k in self.__funcDict__:
             return self.__funcDict__[x_k]
         self.__funcCalculation__ += 1
@@ -30,6 +34,7 @@ class GradientDescent:
 
     # При необходимости вычисляет градиент и увеличивает соответствующий счетчик
     def grad(self, x_k):
+        x_k = tuple(x_k)
         if x_k in self.__gradDict__:
             return self.__gradDict__[x_k]
         self.__gradCalculation__ += 1
@@ -47,7 +52,10 @@ class GradientDescent:
         return self.__gradCalculation__
 
     # Запускает алгоритм
-    def __call__(self, startPoint):
+    def __call__(self, startPoint, iterations):
+        prev_stopping_criteria = self.stoppingCriteria
+        if iterations > 0:
+            self.stoppingCriteria = IterationsPlus(iterations, prev_stopping_criteria)
         point = startPoint
         self.__history__ = [startPoint] # История посещенных точек
         self.__funcCalculation__ = 0 # Счетчик вычислений функции
@@ -59,4 +67,5 @@ class GradientDescent:
             self.__history__.append(point)
             if b:
                 break
+        self.stoppingCriteria = prev_stopping_criteria
         return self.__history__, self.__funcCalculation__, self.__gradCalculation__
