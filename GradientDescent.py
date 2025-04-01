@@ -1,3 +1,5 @@
+# В этом файле содержится непосредственно алгоритм градиентного спуска
+
 import numpy as np
 
 from StoppingCriteria import IterationsPlus
@@ -51,17 +53,17 @@ class GradientDescent:
     def grad_calculations(self):
         return self.__gradCalculation__
 
-    # Запускает алгоритм
+    # Запускает алгоритм, если iterations > 0, то к условию, содержащемуся в stoppingCriteria добавится условие на кол-во итераций алгоритма
     def __call__(self, startPoint, iterations):
         prev_stopping_criteria = self.stoppingCriteria
         if iterations > 0:
             self.stoppingCriteria = IterationsPlus(iterations, prev_stopping_criteria)
         point = startPoint
-        self.__history__ = [startPoint] # История посещенных точек
-        self.__funcCalculation__ = 0 # Счетчик вычислений функции
-        self.__gradCalculation__ = 0 # Счётчик вычислений градиента
+        self.__history__ = [startPoint]  # История посещенных точек
+        self.__funcCalculation__ = 0  # Счетчик вычислений функции
+        self.__gradCalculation__ = 0  # Счётчик вычислений градиента
         while True:
-            self.vector = np.multiply(self.grad(point), -1) # Направление следующего движения
+            self.vector = np.multiply(self.grad(point), -1)  # Направление следующего движения
             point = self.next_point(point, self.learningRateCalculator.learning_rate(self))
             b = self.stoppingCriteria(self, point)
             self.__history__.append(point)

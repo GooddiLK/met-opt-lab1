@@ -3,19 +3,16 @@ from LearningRateScheduling import LearningRateSchedulingConstant
 from OneDimensional import Armijo, Wolfe
 from StoppingCriteria import Iterations, SequenceEps
 
-def fu(x):
-    return x ** 2
-
-def gr(x):
-    return 2 * x
-
 func_table = [
     [lambda x: x ** 2, lambda x: 2 * x],
     [lambda x: x[0] ** 2 + x[1] ** 2, lambda x: [2 * x[0], 2 * x[1]]]
 ]
 
+
 def print_res(gd_inst, point, iterations):
     print("\n".join([str(i) for i in gd_inst(point, iterations)[0]]))
+
+
 # gd = GradientDescent(fu, gr, LearningRateSchedulingConstant(0.25), SequenceEps(0.0001))
 # print("\n".join([str(i) for i in gd(2)[0]]))
 # print("\n----------\n")
