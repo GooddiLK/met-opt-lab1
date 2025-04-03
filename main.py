@@ -79,8 +79,8 @@ if __name__ == "__main__":
     # show(3, rng, rng/20, 0, Armijo(1, 0.9, 0.0001, 0.001), SequenceEps(10 ** -10), [np.longdouble(3), np.longdouble(3)], 5 * 10 ** 3)
 
     f_num = 2
-    test_point = [np.longdouble(10), np.longdouble(2)]
-    iter_max = 10
+    test_point = [np.longdouble(0), np.longdouble(2)]
+    iter_max = 10^4
     run(f_num, LearningRateSchedulingConstant(0.01), SequenceValueEps(0.0001), test_point, iter_max)
     run(f_num, LearningRateSchedulingGeom(1.1, 1/52), SequenceValueEps(0.0001), test_point, iter_max)
     run(f_num, LearningRateSchedulingExponential(3), SequenceValueEps(0.0001), test_point, iter_max)
