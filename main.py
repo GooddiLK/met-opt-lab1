@@ -1,6 +1,7 @@
+import math
+
 import numpy as np
-from contourpy import as_z_interp
-from matplotlib.colorizer import Colorizer
+from matplotlib.colors import LinearSegmentedColormap
 
 from GradientDescent import GradientDescent
 from numpy import arange
@@ -44,10 +45,7 @@ def to2(func):
     return lambda x, y: func([x, y])
 
 
-def show(func_number, rng, grid, last_points, learning_rate, stopping_criteria, point, iterations):
-    func = func_table[func_number][0]
-    gd = GradientDescent(func, func_table[func_number][1], learning_rate, stopping_criteria)
-    r = gd(point, iterations)[0]
+def show(func, rng, grid, last_points, r):
     if last_points > 0:
         r = r[-last_points:]
     lx, ly = r[-1]
@@ -57,11 +55,19 @@ def show(func_number, rng, grid, last_points, learning_rate, stopping_criteria, 
     results = to2(func)(x, y)
     figure = plt.figure()
     axis = figure.add_subplot(111, projection='3d')
-    axis.plot_surface(x, y, results, cmap='jet', alpha=0.5)
+    axis.plot_surface(x, y, results, cmap='viridis', alpha=0.5)
     rx = np.array([i[0] for i in r])
     ry = np.array([i[1] for i in r])
     rz = to2(func)(rx, ry)
-    axis.scatter(rx, ry, rz, c="green")
+    indices = np.linspace(0, 1, len(r))
+    indices = np.array([math.exp(-i) for i in indices])
+    colors = ["green", "red"]
+    cmap_custom = LinearSegmentedColormap.from_list("RedToGreen", colors)
+    axis.scatter(
+        rx, ry, rz,
+        c=indices,
+        cmap=cmap_custom,
+    )
     plt.show()
 
 
