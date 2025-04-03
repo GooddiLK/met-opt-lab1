@@ -9,11 +9,11 @@ class GradientDescent:
     def __init__(self, func, grad, learningRateCalculator, stoppingCriteria):
         self.__funcFunc__ = func
         self.__gradFunc__ = grad
-        self.learningRateCalculator = learningRateCalculator
         # Calculator должен обладать методом принимающим экземпляр этого класса и возвращающим следующий learning_rate
-        self.stoppingCriteria = stoppingCriteria
+        self.learningRateCalculator = learningRateCalculator
         # stoppingCriteria должен обладать методом принимающим экземпляр этого класса и последнюю вычисленную точку и возвращающим True,
         # если необходимо закончить вычисление
+        self.stoppingCriteria = stoppingCriteria
         self.__funcDict__ = dict()
         self.__gradDict__ = dict()
 
@@ -59,9 +59,9 @@ class GradientDescent:
         if iterations > 0:
             self.stoppingCriteria = IterationsPlus(iterations, prev_stopping_criteria)
         point = startPoint
-        self.__history__ = [startPoint]  # История посещенных точек
-        self.__funcCalculation__ = 0  # Счетчик вычислений функции
-        self.__gradCalculation__ = 0  # Счётчик вычислений градиента
+        self.__history__ = [startPoint] # История посещенных точек
+        self.__funcCalculation__ = 0    # Счетчик вычислений функции
+        self.__gradCalculation__ = 0    # Счётчик вычислений градиента
         while True:
             self.vector = np.multiply(self.grad(point), -1)  # Направление следующего движения
             point = self.next_point(point, self.learningRateCalculator.learning_rate(self))
