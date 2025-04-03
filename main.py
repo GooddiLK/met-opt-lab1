@@ -16,7 +16,9 @@ func_table = [
 
 def print_res(gd_inst, point, iterations):
     r = gd_inst(point, iterations)
+    print("кол-во итераций + конечная точка")
     print(len(r[0]), r[0][-1])
+    print("кол-во вызовов функции и ее производной")
     print(r[1:])
 
 
