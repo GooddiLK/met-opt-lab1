@@ -21,6 +21,7 @@ def print_res(gd_inst, point, iterations):
     print(len(r[0]), r[0][-1])
     print("кол-во вызовов функции и ее производной")
     print(r[1:])
+    print("---------------------------------------")
 
 
 def run(func_number, learning_rate, stopping_criteria, point, iterations):
