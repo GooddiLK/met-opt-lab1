@@ -9,9 +9,11 @@ from StoppingCriteria import Iterations, SequenceEps, SequenceValueEps
 func_table = [
     [lambda x: x[0] ** 2 - 10, lambda x: 2 * x[0]],
     [lambda x: x[0] ** 2 + x[1] ** 2, lambda x: [2 * x[0], 2 * x[1]]],
-    [lambda x: x[0] ** 2 + 20 * x[1] ** 2 - 8 * x[0] * x[1] - x[1], lambda x: [2 * x[0] - 8 * x[1], 40 * x[1] - 8 * x[0] - 1]],
+    [lambda x: x[0] ** 2 + 20 * x[1] ** 2 - 8 * x[0] * x[1] - x[1],
+     lambda x: [2 * x[0] - 8 * x[1], 40 * x[1] - 8 * x[0] - 1]],
     [lambda x: (x[0] ** 2 + x[1] - 11) ** 2 + (x[0] + x[1] ** 2 - 7) ** 2,
-      lambda x: [2 * (x[0] ** 2 + x[1] - 11) * (2 * x[0]) + 2 * (x[0] + x[1] ** 2 - 7), 2 * (x[0] + x[1] ** 2 - 7) * (2*x[1]) + 2 * (x[0] ** 2 + x[1] - 11)]]
+     lambda x: [2 * (x[0] ** 2 + x[1] - 11) * (2 * x[0]) + 2 * (x[0] + x[1] ** 2 - 7),
+                2 * (x[0] + x[1] ** 2 - 7) * (2 * x[1]) + 2 * (x[0] ** 2 + x[1] - 11)]]
 ]
 
 
