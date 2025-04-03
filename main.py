@@ -75,9 +75,9 @@ if __name__ == "__main__":
     f_num = 2
     test_point = [10, 2]
     iter_max = 10**4
-    run(f_num, LearningRateSchedulingConstant(1), SequenceValueEps(0.0001), test_point, iter_max)
+    run(f_num, LearningRateSchedulingConstant(0.01), SequenceValueEps(0.0001), test_point, iter_max)
     run(f_num, LearningRateSchedulingLinear(0.5, 1), SequenceValueEps(0.0001), test_point, iter_max)
-    run(f_num, LearningRateSchedulingExponential(1), SequenceValueEps(0.0001), test_point, iter_max)
+    run(f_num, LearningRateSchedulingExponential(0.1), SequenceValueEps(0.0001), test_point, iter_max)
     run(f_num, LearningRateSchedulingPolynomial(0.5, 1), SequenceValueEps(0.0001), test_point, iter_max)
 
     #run(1, Armijo(1, 0.9, 0.0001, 0.001), SequenceValueEps(0.001), [2, 2], 5 * 10**3)

@@ -6,6 +6,7 @@ from math import sqrt, exp
 
 
 # Константный шаг
+# Размер шага должен быть порядка сотых
 class LearningRateSchedulingConstant:
     def __init__(self, learning_rate):
         self.learning_rate_c = learning_rate
@@ -30,6 +31,7 @@ def h0(epoch):
 
 
 # Планирование шага - экспоненциальное затухание
+# Экспонента должна быть маленькой, порядка десятых
 class LearningRateSchedulingExponential:
     def __init__(self, lambdaParameter):
         self.lambdaParameter = lambdaParameter
