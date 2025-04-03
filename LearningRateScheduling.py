@@ -15,14 +15,14 @@ class LearningRateSchedulingConstant:
         return self.learning_rate_c
 
 
-# Пример кусочно-постоянного шага: линейный
-class LearningRateSchedulingLinear:
+# Пример кусочно-постоянного шага: геометрическая прогрессия
+class LearningRateSchedulingGeom:
     def __init__(self, k, learning_rate_0):
         self.k = k
         self.learning_rate_0 = learning_rate_0
 
     def learning_rate(self, gd):
-        return self.learning_rate_0 - self.k * gd.epoch()
+        return self.learning_rate_0 / (self.k ** (gd.epoch() - 1))
 
 
 # Вспомогательная функция для функционального планирования шага

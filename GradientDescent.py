@@ -18,6 +18,8 @@ class GradientDescent:
         self.__gradDict__ = dict()
 
     def next_point(self, point, learningRate):
+        if learningRate < 0:
+            raise Exception("Learning rate must be positive")
         return np.add(point, np.multiply(self.vector, learningRate))
 
     # Возвращает номер итерации алгоритма

@@ -1,13 +1,14 @@
+import math
+
 import numpy as np
-from contourpy import as_z_interp
-from matplotlib.colorizer import Colorizer
+from matplotlib.colors import LinearSegmentedColormap
 
 from GradientDescent import GradientDescent
 from numpy import arange
 from numpy import meshgrid
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-from LearningRateScheduling import LearningRateSchedulingConstant, LearningRateSchedulingLinear, \
+from LearningRateScheduling import LearningRateSchedulingConstant, LearningRateSchedulingGeom, \
     LearningRateSchedulingExponential, LearningRateSchedulingPolynomial
 from OneDimensional import Armijo, Wolfe
 from StoppingCriteria import Iterations, SequenceEps, SequenceValueEps
@@ -44,10 +45,7 @@ def to2(func):
     return lambda x, y: func([x, y])
 
 
-def show(func_number, rng, grid, last_points, learning_rate, stopping_criteria, point, iterations):
-    func = func_table[func_number][0]
-    gd = GradientDescent(func, func_table[func_number][1], learning_rate, stopping_criteria)
-    r = gd(point, iterations)[0]
+def show(func, rng, grid, last_points, r):
     if last_points > 0:
         r = r[-last_points:]
     lx, ly = r[-1]
@@ -57,11 +55,19 @@ def show(func_number, rng, grid, last_points, learning_rate, stopping_criteria, 
     results = to2(func)(x, y)
     figure = plt.figure()
     axis = figure.add_subplot(111, projection='3d')
-    axis.plot_surface(x, y, results, cmap='jet', alpha=0.5)
+    axis.plot_surface(x, y, results, cmap='viridis', alpha=0.5)
     rx = np.array([i[0] for i in r])
     ry = np.array([i[1] for i in r])
     rz = to2(func)(rx, ry)
-    axis.scatter(rx, ry, rz, c="green")
+    indices = np.linspace(0, 1, len(r))
+    indices = np.array([math.exp(-i) for i in indices])
+    colors = ["green", "red"]
+    cmap_custom = LinearSegmentedColormap.from_list("RedToGreen", colors)
+    axis.scatter(
+        rx, ry, rz,
+        c=indices,
+        cmap=cmap_custom,
+    )
     plt.show()
 
 
@@ -73,11 +79,11 @@ if __name__ == "__main__":
     # show(3, rng, rng/20, 0, Armijo(1, 0.9, 0.0001, 0.001), SequenceEps(10 ** -10), [np.longdouble(3), np.longdouble(3)], 5 * 10 ** 3)
 
     f_num = 2
-    test_point = [10, 2]
-    iter_max = 10**4
+    test_point = [np.longdouble(10), np.longdouble(2)]
+    iter_max = 10
     run(f_num, LearningRateSchedulingConstant(0.01), SequenceValueEps(0.0001), test_point, iter_max)
-    run(f_num, LearningRateSchedulingLinear(0.5, 1), SequenceValueEps(0.0001), test_point, iter_max)
-    run(f_num, LearningRateSchedulingExponential(0.1), SequenceValueEps(0.0001), test_point, iter_max)
+    run(f_num, LearningRateSchedulingGeom(1.1, 1/52), SequenceValueEps(0.0001), test_point, iter_max)
+    run(f_num, LearningRateSchedulingExponential(3), SequenceValueEps(0.0001), test_point, iter_max)
     run(f_num, LearningRateSchedulingPolynomial(0.5, 1), SequenceValueEps(0.0001), test_point, iter_max)
 
     #run(1, Armijo(1, 0.9, 0.0001, 0.001), SequenceValueEps(0.001), [2, 2], 5 * 10**3)
