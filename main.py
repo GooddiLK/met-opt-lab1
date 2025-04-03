@@ -31,7 +31,7 @@ if __name__ == "__main__":
     # run(2, Armijo(10, 0.9, 0.00001, 0.001), SequenceValueEps(0.0001), [2, 0], 0)
     # print("--------")
     # run(2, Wolfe(1,0.99, 0.00001, 0.001, 0.4), SequenceValueEps(10 ** -10), [2, 0], 0)
-    run(3, Armijo(1, 0.9, 0.0001, 0.001), SequenceEps(10 ** -10), [np.longfloat(3), np.longfloat(3)], 5 * 10 ** 3)
+    run(3, Armijo(1, 0.9, 0.0001, 0.001), SequenceEps(10 ** -10), [np.longdouble(3), np.longdouble(3)], 5 * 10 ** 3)
     run(3, Wolfe(12, 0.001, 0.1, 0.0001), SequenceEps(10 ** -10), [3, 3], 5 * 10 ** 3)
     # run(1, Armijo(1, 0.99, 0.00001, 0.001), SequenceEps(10 ** -10), [10], 5 * 10 ** 6)
     # run(1, Wolfe(1,0.99, 0.00001, 0.001, 0.4), SequenceEps(10 ** -10), [10], 5 * 10 ** 6)
