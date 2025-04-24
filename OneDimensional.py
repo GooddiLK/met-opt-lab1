@@ -45,7 +45,7 @@ class Armijo:
 class BinarySearch:
     def __init__(self, eps):
         self.eps = eps
-
+# Добавить епс как аргумент
     def __call__(self, gd, x_k, c1, c2, l, r):
         while r - l > self.eps:
             m = (l + r) / 2
